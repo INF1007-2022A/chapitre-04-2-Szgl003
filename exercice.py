@@ -2,32 +2,40 @@
 # -*- coding: utf-8 -*-
 
 import random
-""""
-Soit un prénom composé (avec un trait d’union) passé en paramètre (exemple « jean-luc »).
-Il faut extraire le premier prénom (exemple « jean » pour « jean-luc ») puis le mettre dans
-la phrase « Bonjour PremierPrénom » (exemple « Bonjour Jean »). La première lettre du prénom doit
-être en majuscule (même si le paramètre est en minuscule). Indice : Les chaînes de caractères
-possède des fonctions de recherche et de séparation
-"""
+
 def get_first_part_of_name(name):
 
- name = name.split("-")
+ name = name.split("-")[0]
 
- if ord(name[0][0]) >= 97:
+ nom_maj = name[0].upper() + name[1:].lower()
 
-	 name[0][0] = chr(ord(name[0][0]) - 32)
-
-
- return name
+ return "Bonjour, " + nom_maj
 
 def get_random_sentence(animals, adjectives, fruits):
-	return ""
+
+ phrase = "Aujourd’hui, j’ai vu un %s s’emparer d’un panier %s plein de %s."
+ words = []
+
+ for word_set in (animals, adjectives, fruits):
+	 words += [word_set[random.randrange(0,len(word_set))]]
+
+
+ return phrase % tuple(words)
 
 def encrypt(text, shift):
-	return ""
+	result = ""
+	for letter in text:
+		encrypted_letter = letter
+		if letter.isalpha():
+			index = ord(letter.upper()) - ord("A")
+			encrypted_index = (index + shift) % 26
+			encrypted_letter = chr(ord("A") + encrypted_index)
+		result += encrypted_letter
+	return result
+
 
 def decrypt(encrypted_text, shift):
-	return ""
+	return encrypt(encrypted_text, -shift)
 
 
 if __name__ == "__main__":
